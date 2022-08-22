@@ -56,17 +56,10 @@ const categories = [
             })
           "
         >
-          <div class="flip flex justify-center items-center">
-            <div class="flip__body">
-              <div class="flip__front">
-                <div class="kart">
-                  <img :src="category.img" alt="" />
-                </div>
-              </div>
-              <div class="flip__back">
-                <div class="text-center text1">{{ category.name }}</div>
-              </div>
-            </div>
+          <div class="wrap">
+            <img :src="category.img" alt="" class="mx-auto mb-auto" />
+
+            <div class="text-center text1">{{ category.name }}</div>
           </div>
         </div>
       </div>
@@ -77,7 +70,7 @@ const categories = [
 <style scoped lang="sass">
 .lev
   width: 100%
-  height: 200px
+  height: 220px
   background-color: #fff
   border-radius: 8px
   box-shadow: 0 1px 10px 0 rgb(0 0 0 / 26%)
@@ -86,50 +79,27 @@ const categories = [
   align-content: center
   cursor: pointer
 
+
+
+
 .text1
   font-weight: 600
   font-size: 20px
+  transition: .2s
+  .lev:hover &
+    color: var(--color-text)
 
-.kart
-  max-width: 255px
-  min-width: 200px
-  height: 150px
-  justify-content: center
-  align-items: center
-  display: flex
-  overflow: hidden
-
-.flip__body
-  position: relative
-  width: 150px
-  height: 150px
-  transition: all 0.6s ease 0s
-  transform-style: preserve-3d
-
-.flip__front,
-.flip__back
-  position: absolute
-  width: 100%
-  height: 100%
-  top: 0
-  left: 0
-  display: flex
-  justify-content: center
-  align-items: center
-
-.flip__front
-  z-index: 2
-  transform: rotateY(0deg)
-  backface-visibility: hidden
-
-.flip__back
-  transform: rotateY(-180deg)
-
-.flip:hover .flip__body
-  transform: rotateY(-180deg)
 
 .grid
   display: grid
   grid-template-columns: repeat(4, 1fr)
   gap: 40px
+
+.wrap
+  padding: 20px 0
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  height: inherit
 </style>

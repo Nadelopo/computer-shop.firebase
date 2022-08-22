@@ -40,9 +40,10 @@ watch(isOpen, () => {
     box-shadow: 0 0 6px 4px rgba(0,0,0, .15)
     border-radius: 4px
     color: #000
-    div
+    div, a
       min-width: 100px
       font-size: 18px
+      display: block
       user-select: none
       border-radius: 4px
       transition: .2s

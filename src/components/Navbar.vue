@@ -74,7 +74,7 @@ const checkAuth = () => {
             </router-link>
           </div>
           <div class="li">
-            <router-link :to="{ name: 'Home' }" class="li__line">
+            <router-link :to="{ name: 'Delivery' }" class="li__line">
               ДОСТАВКА
             </router-link>
           </div>
@@ -91,18 +91,18 @@ const checkAuth = () => {
                 <UserSvg width="25" class="user__svg" />
               </template>
               <template #content>
-                <!-- <router-link :to="{ name: 'Auth' }"> -->
                 <div v-if="userEmail" @click="logout">выйти</div>
                 <div v-else @click="$router.push({ name: 'Auth' })">войти</div>
-                <!-- </router-link> -->
-                <div>
-                  <router-link :to="{ name: 'Profile' }" @click="checkAuth">
-                    профиль
-                  </router-link>
-                </div>
-                <div v-if="userEmail == 'admin@admin.admin'">
-                  <router-link :to="{ name: 'Admin' }">admin</router-link>
-                </div>
+                <router-link :to="{ name: 'Profile' }" @click="checkAuth">
+                  профиль
+                </router-link>
+
+                <router-link
+                  :to="{ name: 'Admin' }"
+                  v-if="userEmail == 'admin@admin.admin'"
+                >
+                  admin
+                </router-link>
               </template>
             </Popup>
           </div>

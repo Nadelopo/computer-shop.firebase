@@ -39,7 +39,7 @@ const list = [
         <div class="li" v-for="(item, index) in list" :key="index">
           <Component :is="item.svg" width="30" />
           <div>
-            <div class="font-medium text-2xl mb-4">{{ item.head }}</div>
+            <div class="font-medium text-2xl mb-3">{{ item.head }}</div>
             <div class="text-2xl text-justify">
               {{ item.text }}
             </div>
@@ -54,8 +54,8 @@ const list = [
 .list
   display: grid
   grid-template-columns: 1fr 1fr
+  grid-gap: 40px
   .li
     display: grid
     grid-template-columns: 40px 1fr
-    padding: 0 20px
 </style>
