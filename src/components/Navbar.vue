@@ -1,6 +1,6 @@
 <script setup>
-import UserSvg from '@/icons/userSvg.vue'
-import FavouritesSVG from '@/icons/favouritesSvg.vue'
+import UserSvg from '@/icons/user.svg'
+import FavouritesSVG from '@/icons/favourites.svg'
 import Popup from './UI/Popup.vue'
 import { usersStore } from '../stores/userStore'
 import { storeToRefs } from 'pinia'
@@ -69,7 +69,7 @@ const checkAuth = () => {
             </router-link>
           </div>
           <div class="li">
-            <router-link :to="{ name: 'Home' }" class="li__line">
+            <router-link :to="{ name: 'About' }" class="li__line">
               О НАС
             </router-link>
           </div>
@@ -106,7 +106,9 @@ const checkAuth = () => {
               </template>
             </Popup>
           </div>
-          <div><FavouritesSVG width="25" class="cursor-pointer" /></div>
+          <div>
+            <FavouritesSVG fill="#fff" width="25" class="cursor-pointer" />
+          </div>
           <div>
             <img src="@/assets/img/shopCart.png" class="cart__icon" alt="" />
           </div>

@@ -47,6 +47,12 @@ const routes = [
     meta: { auth: true },
     component: () => import('@/views/Profile.vue'),
   },
+  {
+    path: '/about',
+    name: 'About',
+    meta: { auth: true },
+    component: () => import('@/views/About.vue'),
+  },
 
   // {
   //   path: '/edit/:category/:id',
