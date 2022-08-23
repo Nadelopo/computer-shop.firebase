@@ -35,7 +35,7 @@ const filter = () => {
       <div class="text-end">
         <input
           @keyup.enter="filter"
-          @change="filter"
+          @input="filter"
           :step="step"
           ref="refMin"
           min="0"
@@ -52,7 +52,7 @@ const filter = () => {
       <div class="text-start">
         <input
           @keyup.enter="filter"
-          @change="filter"
+          @input="filter"
           :step="step"
           ref="refMax"
           min="0"
