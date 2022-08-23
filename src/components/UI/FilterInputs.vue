@@ -10,8 +10,6 @@ const emit = defineEmits(['update:maxVal', 'update:minVal'])
 const filter = () => {
   const minprice = minPric.value
   const maxprice = maxPric.value
-  emit('update:minVal', minPric.value)
-  emit('update:maxVal', maxPric.value)
 
   if (minPric.value > maxPric.value) {
     maxPric.value = minprice
@@ -25,6 +23,8 @@ const filter = () => {
   if (maxPric.value > props.max || !maxPric.value) {
     maxPric.value = props.max
   }
+  emit('update:minVal', minPric.value)
+  emit('update:maxVal', maxPric.value)
 }
 </script>
 
