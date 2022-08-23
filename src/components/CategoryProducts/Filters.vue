@@ -2,6 +2,8 @@
 import FilterInputs from '../UI/FilterInputs.vue'
 import { filtersStore } from '@/stores/filterStore'
 import { storeToRefs } from 'pinia'
+import { computed } from 'vue'
+import { useLoadFilters } from '@/firebase'
 
 const { minP, maxP } = storeToRefs(filtersStore())
 </script>
