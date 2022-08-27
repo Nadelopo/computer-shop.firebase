@@ -1,14 +1,14 @@
 <template>
   <div class="">
     <div class="flex m-auto">
-      <div @click="check">
+      <div>
         <label :for="id" class="label-cbx">
           <input
             :id="id"
             type="checkbox"
             class="invisible"
             v-model="listener"
-            @input="$emit(`update:modelValue`, !listener ? name : null)"
+            @input="updateValue"
           />
           <div class="checkbox">
             <svg width="20px" height="20px" viewBox="0 0 20 20">
@@ -26,15 +26,36 @@
 </template>
 
 <script setup>
+import { useRouter, useRoute } from 'vue-router'
 import { defineProps, ref } from 'vue'
-defineProps({
+
+const router = useRouter()
+const route = useRoute()
+const props = defineProps({
   id: [String, Number],
   name: [String, Number],
   dop: String,
+  title: String,
 })
 let listener = ref('')
 
-defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue'])
+
+const updateValue = () => {
+  // const currentQuery = ref()
+  for (const key in route.query) {
+    if (key == props.title) {
+      console.log(route.query[props.title])
+    }
+  }
+  router.push({
+    query: {
+      ...route.query,
+      [props.title]: !listener.value ? props.name : null,
+    },
+  })
+  emit(`update:modelValue`, !listener.value ? props.name : null)
+}
 </script>
 
 <style scoped lang="sass">

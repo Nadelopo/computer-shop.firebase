@@ -2,7 +2,7 @@ import { defineStore, storeToRefs } from 'pinia'
 import { productsStore } from './productsStore'
 import { ref } from 'vue'
 import { getFilter } from '@/firebase'
-import { useRoute } from 'vue-router'
+// import { useRoute } from 'vue-router'
 
 export const filtersStore = defineStore('filters', {
   state: () => {
@@ -11,24 +11,8 @@ export const filtersStore = defineStore('filters', {
     const minP = ref(0)
     const maxP = ref(300000)
 
-    const route = useRoute()
     const filterFilters = ref()
     const copyFilter = ref()
-
-    getFilter(route.params.category).then((resp) => {
-      if (resp) {
-        filterFilters.value = resp.q
-        copyFilter.value = JSON.parse(JSON.stringify(filterFilters.value))
-        copyFilter.value = copyFilter.value.map((e) => {
-          for (let key in e) {
-            if (e[key].title) {
-              e[key].title = null
-            }
-          }
-          return e
-        })
-      }
-    })
 
     return { categoryProducts, search, minP, maxP, filterFilters, copyFilter }
   },
@@ -41,6 +25,23 @@ export const filtersStore = defineStore('filters', {
           e.price <= state.maxP &&
           e.price >= state.minP
       ),
+  },
+  actions: {
+    async updateFilters(category) {
+      const dataDb = await getFilter(category)
+      if (dataDb) {
+        this.filterFilters = dataDb.q
+        this.copyFilter = JSON.parse(JSON.stringify(this.filterFilters))
+        this.copyFilter = this.copyFilter.map((e) => {
+          for (let key in e) {
+            if (e[key].title) {
+              e[key].title = null
+            }
+          }
+          return e
+        })
+      }
+    },
   },
 })
 

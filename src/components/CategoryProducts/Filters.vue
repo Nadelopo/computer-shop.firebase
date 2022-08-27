@@ -2,10 +2,19 @@
 import FilterInputs from '../UI/FilterInputs.vue'
 import { filtersStore } from '@/stores/filterStore'
 import { storeToRefs } from 'pinia'
-
-import CheckBox from '../UI/CheckBox.vue'
+import { watch } from 'vue'
+import FilterCheckBox from '../UI/FilterCheckBox.vue'
+import { useRoute } from 'vue-router'
 
 const { minP, maxP, filterFilters, copyFilter } = storeToRefs(filtersStore())
+const { updateFilters } = filtersStore()
+
+const route = useRoute()
+updateFilters(route.params.category)
+watch(
+  () => route.params.category,
+  (cur) => updateFilters(cur)
+)
 </script>
 
 <template>
@@ -21,10 +30,11 @@ const { minP, maxP, filterFilters, copyFilter } = storeToRefs(filtersStore())
     <div v-for="(item, index) in filterFilters" :key="item.title">
       <h1>{{ item.title }}</h1>
       <div v-for="(g, i) in item" :key="g.id">
-        <CheckBox
+        <FilterCheckBox
           v-if="g != item.title"
           :id="index + i"
           :name="g.title"
+          :title="item.title"
           v-model="copyFilter[index][i].title"
         />
       </div>
