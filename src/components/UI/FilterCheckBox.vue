@@ -1,5 +1,53 @@
+<script setup>
+import { useRouter, useRoute } from 'vue-router'
+import { defineProps, ref } from 'vue'
+
+const router = useRouter()
+const route = useRoute()
+const props = defineProps({
+  id: [String, Number],
+  name: [String, Number],
+  dop: String,
+  title: String,
+})
+let listener = ref('')
+for (let key in route.query) {
+  if (key == props.title) {
+    listener.value = route.query[key]
+      ? route.query[key].includes(String(props.name))
+      : ''
+  }
+}
+console.log()
+const emit = defineEmits(['update:modelValue'])
+
+const updateValue = () => {
+  emit(`update:modelValue`, !listener.value ? props.name : null)
+  let query = []
+  if (!listener.value) {
+    if (route.query[props.title]) {
+      query.push(route.query[props.title], props.name)
+    } else query.push(props.name)
+  } else {
+    if (typeof route.query[props.title] == 'string') {
+      query = null
+    } else {
+      const s = route.query[props.title].filter((e) => e != props.name)
+      if (s.length == 0) query = null
+      else query = s
+    }
+  }
+  router.push({
+    query: {
+      ...route.query,
+      [props.title]: query,
+    },
+  })
+}
+</script>
+
 <template>
-  <div class="">
+  <div>
     <div class="flex m-auto">
       <div>
         <label :for="id" class="label-cbx">
@@ -24,39 +72,6 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { useRouter, useRoute } from 'vue-router'
-import { defineProps, ref } from 'vue'
-
-const router = useRouter()
-const route = useRoute()
-const props = defineProps({
-  id: [String, Number],
-  name: [String, Number],
-  dop: String,
-  title: String,
-})
-let listener = ref('')
-
-const emit = defineEmits(['update:modelValue'])
-
-const updateValue = () => {
-  // const currentQuery = ref()
-  for (const key in route.query) {
-    if (key == props.title) {
-      console.log(route.query[props.title])
-    }
-  }
-  router.push({
-    query: {
-      ...route.query,
-      [props.title]: !listener.value ? props.name : null,
-    },
-  })
-  emit(`update:modelValue`, !listener.value ? props.name : null)
-}
-</script>
 
 <style scoped lang="sass">
 .label-cbx

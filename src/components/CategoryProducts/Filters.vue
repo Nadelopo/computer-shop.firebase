@@ -22,7 +22,7 @@ watch(
     <FilterInputs
       v-model:minVal="minP"
       v-model:maxVal="maxP"
-      :description="'Цена'"
+      :description="'цена'"
       :max="300000"
       :step="500"
     />

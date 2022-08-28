@@ -2,14 +2,17 @@ import { defineStore, storeToRefs } from 'pinia'
 import { productsStore } from './productsStore'
 import { ref } from 'vue'
 import { getFilter } from '@/firebase'
-// import { useRoute } from 'vue-router'
+import { useRoute } from 'vue-router'
 
 export const filtersStore = defineStore('filters', {
   state: () => {
     const { categoryProducts } = storeToRefs(productsStore())
+    const route = useRoute()
+    console.log(route.query['цена'])
     const search = ref('')
     const minP = ref(0)
     const maxP = ref(300000)
+    ;[minP.value, maxP.value] = route.query['цена'].split('-')
 
     const filterFilters = ref()
     const copyFilter = ref()
