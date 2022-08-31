@@ -3,31 +3,59 @@ import { productsStore } from './productsStore'
 import { ref } from 'vue'
 import { getFilter } from '@/firebase'
 import { useRoute } from 'vue-router'
-
+const { log } = console
+log
 export const filtersStore = defineStore('filters', {
   state: () => {
     const { categoryProducts } = storeToRefs(productsStore())
-    const route = useRoute()
-    console.log(route.query['цена'])
-    const search = ref('')
-    const minP = ref(0)
-    const maxP = ref(300000)
-    ;[minP.value, maxP.value] = route.query['цена'].split('-')
+
+    const getNumberDataFromQuery = (where) => {
+      const route = useRoute()
+      let min
+      let max
+      if (route.query[where]) {
+        min = Number(route.query[where].split('-')[0])
+        max = Number(route.query[where].split('-')[1])
+      } else {
+        min = 0
+        max = 300000
+      }
+
+      return [min, max]
+    }
 
     const filterFilters = ref()
     const copyFilter = ref()
+
+    // filter variables
+    const search = ''
+    const [minP, maxP] = getNumberDataFromQuery('price')
 
     return { categoryProducts, search, minP, maxP, filterFilters, copyFilter }
   },
   getters: {
     filterProducts: (state) =>
-      state.categoryProducts.filter(
-        (e) =>
+      state.categoryProducts.filter((e) => {
+        const route = useRoute()
+        let s = []
+        if (s) {
+          e.fields.forEach((e) => {
+            for (let key in route.query) {
+              if (key == e.enFieldTitle) {
+                if (!route.query[key]) s.push(true)
+                else s.push(route.query[key] == e.title)
+              }
+            }
+          })
+        }
+
+        const filter =
           (e.name.toLowerCase().includes(state.search.toLowerCase()) ||
             !state.search) &&
           e.price <= state.maxP &&
           e.price >= state.minP
-      ),
+        return filter && s.includes(true)
+      }),
   },
   actions: {
     async updateFilters(category) {

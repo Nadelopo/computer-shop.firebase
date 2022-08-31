@@ -9,30 +9,31 @@ const props = defineProps({
   name: [String, Number],
   dop: String,
   title: String,
+  enTitle: String,
 })
 let listener = ref('')
 for (let key in route.query) {
-  if (key == props.title) {
+  if (key == props.enTitle) {
     listener.value = route.query[key]
       ? route.query[key].includes(String(props.name))
       : ''
   }
 }
-console.log()
+
 const emit = defineEmits(['update:modelValue'])
 
 const updateValue = () => {
   emit(`update:modelValue`, !listener.value ? props.name : null)
   let query = []
   if (!listener.value) {
-    if (route.query[props.title]) {
-      query.push(route.query[props.title], props.name)
+    if (route.query[props.enTitle]) {
+      query.push(route.query[props.enTitle], props.name)
     } else query.push(props.name)
   } else {
-    if (typeof route.query[props.title] == 'string') {
+    if (typeof route.query[props.enTitle] == 'string') {
       query = null
     } else {
-      const s = route.query[props.title].filter((e) => e != props.name)
+      const s = route.query[props.enTitle].filter((e) => e != props.name)
       if (s.length == 0) query = null
       else query = s
     }
@@ -40,7 +41,7 @@ const updateValue = () => {
   router.push({
     query: {
       ...route.query,
-      [props.title]: query,
+      [props.enTitle]: query,
     },
   })
 }

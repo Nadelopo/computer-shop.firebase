@@ -1,16 +1,34 @@
 <script setup>
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-const props = defineProps(['description', 'max', 'step', 'maxVal', 'minVal'])
+const props = defineProps([
+  'description',
+  'max',
+  'step',
+  'maxVal',
+  'minVal',
+  'enDescription',
+])
 const route = useRoute()
 const router = useRouter()
 
 const minPric = ref(props.minVal)
 const maxPric = ref(props.maxVal)
 
+const minRef = ref(null)
+const maxRef = ref(null)
+
 const emit = defineEmits(['update:maxVal', 'update:minVal'])
 
 const filter = () => {
+  // удаление нулей перед числами
+  if (minRef.value.value[0] == 0)
+    minRef.value.value = minRef.value.value.substring(1)
+
+  if (maxRef.value.value[0] == 0)
+    maxRef.value.value = maxRef.value.value.substring(1)
+
+  //
   const minprice = minPric.value
   const maxprice = maxPric.value
 
@@ -19,17 +37,14 @@ const filter = () => {
     minPric.value = maxprice
   }
 
-  if (minPric.value < 0 || !minPric.value) {
-    minPric.value = 0
-  }
+  if (minPric.value < 0 || !minPric.value) minPric.value = 0
 
-  if (maxPric.value > props.max || !maxPric.value) {
-    maxPric.value = props.max
-  }
+  if (maxPric.value > props.max || !maxPric.value) maxPric.value = props.max
+
   router.push({
     query: {
       ...route.query,
-      [props.description]: minPric.value + '-' + maxPric.value,
+      [props.enDescription]: minPric.value + '-' + maxPric.value,
     },
   })
   emit('update:minVal', minPric.value)
@@ -51,6 +66,7 @@ const filter = () => {
           class="filter_price min"
           placeholder="0"
           type="number"
+          ref="minRef"
           v-model="minPric"
         />
       </div>
@@ -67,6 +83,7 @@ const filter = () => {
           class="filter_price max"
           :placeholder="max"
           type="number"
+          ref="maxRef"
           v-model="maxPric"
         />
       </div>

@@ -18,25 +18,29 @@ watch(
 </script>
 
 <template>
-  <div class="root">
-    <FilterInputs
-      v-model:minVal="minP"
-      v-model:maxVal="maxP"
-      :description="'цена'"
-      :max="300000"
-      :step="500"
-    />
+  <div>
+    <div class="root">
+      <FilterInputs
+        v-model:minVal="minP"
+        v-model:maxVal="maxP"
+        description="цена"
+        en-description="price"
+        :max="300000"
+        :step="500"
+      />
 
-    <div v-for="(item, index) in filterFilters" :key="item.title">
-      <h1>{{ item.title }}</h1>
-      <div v-for="(g, i) in item" :key="g.id">
-        <FilterCheckBox
-          v-if="g != item.title"
-          :id="index + i"
-          :name="g.title"
-          :title="item.title"
-          v-model="copyFilter[index][i].title"
-        />
+      <div v-for="(item, index) in filterFilters" :key="item.title">
+        <h1>{{ item.title }}</h1>
+        <div v-for="(g, i) in item" :key="g.id">
+          <FilterCheckBox
+            v-if="g != item.title && g != item.enTitle"
+            :id="index + i"
+            :name="g.title"
+            :en-title="item.enTitle"
+            :title="item.title"
+            v-model="copyFilter[index][i].title"
+          />
+        </div>
       </div>
     </div>
   </div>
