@@ -6,7 +6,7 @@ import { watch } from 'vue'
 import FilterCheckBox from '../UI/FilterCheckBox.vue'
 import { useRoute } from 'vue-router'
 
-const { minP, maxP, filterFilters, copyFilter } = storeToRefs(filtersStore())
+const { minP, maxP, filterFields, copyFilter } = storeToRefs(filtersStore())
 const { updateFilters } = filtersStore()
 
 const route = useRoute()
@@ -19,7 +19,7 @@ watch(
 
 <template>
   <div>
-    <div class="root">
+    <div class="root" v-if="copyFilter.length">
       <FilterInputs
         v-model:minVal="minP"
         v-model:maxVal="maxP"
@@ -29,7 +29,7 @@ watch(
         :step="500"
       />
 
-      <div v-for="(item, index) in filterFilters" :key="item.title">
+      <div v-for="(item, index) in filterFields" :key="item.title">
         <h1>{{ item.title }}</h1>
         <div v-for="(g, i) in item" :key="g.id">
           <FilterCheckBox

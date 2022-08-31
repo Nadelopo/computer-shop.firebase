@@ -24,14 +24,14 @@ export const filtersStore = defineStore('filters', {
       return [min, max]
     }
 
-    const filterFilters = ref()
-    const copyFilter = ref()
+    const filterFields = ref([])
+    const copyFilter = ref([])
 
     // filter variables
     const search = ''
     const [minP, maxP] = getNumberDataFromQuery('price')
 
-    return { categoryProducts, search, minP, maxP, filterFilters, copyFilter }
+    return { categoryProducts, search, minP, maxP, filterFields, copyFilter }
   },
   getters: {
     filterProducts: (state) =>
@@ -40,20 +40,22 @@ export const filtersStore = defineStore('filters', {
         let s = []
         if (s) {
           e.fields.forEach((e) => {
-            for (let key in route.query) {
-              if (key == e.enFieldTitle) {
-                if (!route.query[key]) s.push(true)
-                else s.push(route.query[key].includes(String(e.title)))
+            if (Object.keys(route.query).length) {
+              for (let key in route.query) {
+                if (key == e.enFieldTitle) {
+                  if (!route.query[key]) s.push(true)
+                  else s.push(route.query[key].includes(String(e.title)))
+                }
               }
-            }
+            } else s.push(true)
           })
         }
-        log(s)
         const filter =
           (e.name.toLowerCase().includes(state.search.toLowerCase()) ||
             !state.search) &&
           e.price <= state.maxP &&
           e.price >= state.minP
+
         return filter && s.includes(true)
       }),
   },
@@ -61,8 +63,8 @@ export const filtersStore = defineStore('filters', {
     async updateFilters(category) {
       const dataDb = await getFilter(category)
       if (dataDb) {
-        this.filterFilters = dataDb.q
-        this.copyFilter = JSON.parse(JSON.stringify(this.filterFilters))
+        this.filterFields = dataDb.q
+        this.copyFilter = JSON.parse(JSON.stringify(this.filterFields))
         this.copyFilter = this.copyFilter.map((e) => {
           for (let key in e) {
             if (e[key].title) {
@@ -71,6 +73,8 @@ export const filtersStore = defineStore('filters', {
           }
           return e
         })
+      } else {
+        this.copyFilter = []
       }
     },
   },
