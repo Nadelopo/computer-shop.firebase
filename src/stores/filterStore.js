@@ -43,12 +43,12 @@ export const filtersStore = defineStore('filters', {
             for (let key in route.query) {
               if (key == e.enFieldTitle) {
                 if (!route.query[key]) s.push(true)
-                else s.push(route.query[key] == e.title)
+                else s.push(route.query[key].includes(String(e.title)))
               }
             }
           })
         }
-
+        log(s)
         const filter =
           (e.name.toLowerCase().includes(state.search.toLowerCase()) ||
             !state.search) &&
