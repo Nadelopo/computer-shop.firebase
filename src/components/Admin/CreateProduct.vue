@@ -73,8 +73,9 @@ watch(
   () => updateCategory()
 )
 
-const cleanForm = () =>
-  (form.value = JSON.parse(JSON.stringify(copyForm.value)))
+const cleanForm = () => {
+  form.value = JSON.parse(JSON.stringify(copyForm.value))
+}
 </script>
 
 <template>

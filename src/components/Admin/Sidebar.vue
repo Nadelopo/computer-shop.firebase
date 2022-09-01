@@ -1,13 +1,18 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onBeforeMount, nextTick } from 'vue'
+import { getCategory } from '@/firebase'
 
 const isVisible = ref(Array(10).fill(false))
 const listRef = ref(null)
 
 const heightList = ref(0)
 
-onMounted(() => {
-  heightList.value = listRef.value.scrollHeight + 'px'
+const categories = ref()
+
+onBeforeMount(async () => {
+  categories.value = await getCategory('names')
+  await nextTick()
+  heightList.value = listRef.value[0].scrollHeight + 'px'
 })
 </script>
 
@@ -17,30 +22,27 @@ onMounted(() => {
       <h1><router-link :to="{ name: 'Home' }">Главная</router-link></h1>
     </div>
     <div class="wrapper">
-      <div class="head" @click="isVisible[0] = !isVisible[0]">Категория</div>
+      <div class="head" @click="isVisible[0] = !isVisible[0]">Категории</div>
       <div class="overflow-hidden">
         <div class="list" :class="{ active: isVisible[0] }">
-          <div class="li" ref="listRef">
-            <router-link
-              :to="{
-                name: 'AdminProducts',
-                params: { category: 'processors' },
-              }"
+          <template v-if="categories">
+            <div
+              class="li"
+              ref="listRef"
+              v-for="categoryq in categories.arr"
+              :key="categoryq.name"
             >
-              Процессоры
-            </router-link>
-          </div>
-          <div class="li">
-            <router-link
-              :to="{
-                name: 'AdminProducts',
-                params: { category: 'videocards' },
-              }"
-            >
-              Видеокарты
-            </router-link>
-          </div>
-          <div class="li">Блоки питания</div>
+              <router-link
+                :to="{
+                  name: 'AdminProducts',
+                  params: { category: categoryq.enName },
+                }"
+              >
+                {{ categoryq.name }}
+              </router-link>
+            </div>
+          </template>
+          <div class="li">создать категорию</div>
         </div>
       </div>
     </div>

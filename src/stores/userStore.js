@@ -8,9 +8,7 @@ export const usersStore = defineStore('users', {
   state: () => {
     const userId = ref()
     const userEmail = ref()
-    const userDoc = computed(() =>
-      getTestProfile(userId.value ? userId.value : 's')
-    )
+    const userDoc = computed(() => getTestProfile(userId.value ?? 's'))
     const user = computed(() => userDoc.value.value[0])
     firebase.auth().onAuthStateChanged(async function (use) {
       if (use) {

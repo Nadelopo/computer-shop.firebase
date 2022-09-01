@@ -13,6 +13,6 @@ import CreateProduct from '../components/Admin/CreateProduct.vue'
 <style scoped lang="sass">
 .root
   display: grid
-  grid-template-columns: 10% auto
+  grid-template-columns: 12% auto
   background: #fff
 </style>
