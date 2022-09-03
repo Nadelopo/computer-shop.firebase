@@ -83,12 +83,12 @@ const cleanForm = () => {
     <div>
       <div v-for="(field, index) in form.fields" :key="index">
         <div class="mb-6">
-          <label>{{ form.fields[index].fieldTitle }}</label>
+          <label>{{ field.fieldTitle }}</label>
           <input
             :type="field.type ? 'text' : 'number'"
             class="minput"
             min="0"
-            v-model.trim="form.fields[index].title"
+            v-model.trim="field.title"
           />
         </div>
       </div>

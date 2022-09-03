@@ -57,6 +57,12 @@ const createProduct = () => {
   uploadValue.value = 0
   imageData.value = ''
 }
+
+const deleteImage = (img) => {
+  firebase.storage().refFromURL(img).delete()
+  imageData.value = null
+  uploadValue.value = 0
+}
 </script>
 
 <template>
@@ -105,8 +111,8 @@ const createProduct = () => {
           <img width="200" :src="form.img" />
           <br />
         </div>
-        <!-- <input type="text" class="minput" v-model.trim="form.img" required /> -->
       </div>
+
       <div class="mb-6">
         <label>гарантия</label>
         <input
@@ -131,14 +137,3 @@ const createProduct = () => {
     </form>
   </div>
 </template>
-
-<style scoped lang="sass">
-progress::-webkit-progress-bar
-  border-radius: 20px
-  background: #fff
-  border: 2px solid var(--color-main)
-
-
-progress::-webkit-progress-value
-  background: var(--color-main)
-</style>

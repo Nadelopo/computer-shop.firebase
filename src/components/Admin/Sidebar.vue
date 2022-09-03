@@ -1,19 +1,20 @@
 <script setup>
-import { ref, onBeforeMount, nextTick } from 'vue'
-import { getCategory } from '@/firebase'
+import { ref, watch } from 'vue'
+
+import { categoriesStore } from '@/stores/categoriesStore'
+import { storeToRefs } from 'pinia'
 
 const isVisible = ref(Array(10).fill(false))
 const listRef = ref(null)
 
 const heightList = ref(0)
 
-const categories = ref()
+const { categories } = storeToRefs(categoriesStore())
 
-onBeforeMount(async () => {
-  categories.value = await getCategory('names')
-  await nextTick()
-  heightList.value = listRef.value[0].scrollHeight + 'px'
-})
+watch(
+  () => listRef.value,
+  (cur) => (heightList.value = cur[0].scrollHeight + 'px')
+)
 </script>
 
 <template>

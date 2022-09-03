@@ -57,6 +57,26 @@ body::-webkit-scrollbar-thumb
     transition: .3s
   &:active
     transform: scale(0.9)
+  &:focus-visible
+    outline: 1px solid var(--color-text)
+  &__notactive
+    border-radius: 4px
+    padding: 0.375rem 0.75rem
+    cursor: pointer
+    transition: .3s
+    display: flex
+    align-items: center
+    justify-content: center
+    background: #fff
+    color: var(--color-main)
+    outline: 1px solid var(--color-text)
+    &:hover
+      background: var(--color-main)
+      color: #fff
+    &:active
+      transform: scale(0.9)
+    &:focus-visible
+      outline: 2px solid var(--color-text)
 
 .container
   margin-right: auto
@@ -75,6 +95,15 @@ body::-webkit-scrollbar-thumb
     -webkit-box-shadow:0 1px 0 0 var(--color-main)
     box-shadow:0 1px 0 0 var(--color-main)
     transition: 0.3s
+
+progress::-webkit-progress-bar
+  border-radius: 20px
+  background: #fff
+  border: 2px solid var(--color-main)
+
+
+progress::-webkit-progress-value
+  background: var(--color-main)
 
 // @media(min-width: 1400px)
 //   .container
