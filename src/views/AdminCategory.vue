@@ -2,8 +2,8 @@
 import AdminWrapper from '../components/Admin/AdminWrapper.vue'
 import { ref } from 'vue'
 import { createCategory, updateCategory, getCategory } from '@/firebase'
-import { categoriesStore } from '../../stores/categoriesStore'
-import DoubleButtons from '../UI/DoubleButtons.vue'
+import { categoriesStore } from '@/stores/categoriesStore'
+import DoubleButtons from '@/components/UI/DoubleButtons.vue'
 import firebase from 'firebase/app'
 import 'firebase/storage'
 
@@ -47,6 +47,7 @@ getCategory('names').then((e) => (categoriesArray.value = e))
 
 const defaultField = {
   fieldTitle: '',
+  enFieldTitle: '',
   title: 0,
   type: true,
   visible: false,
@@ -133,7 +134,16 @@ const create = () => {
           class="mb-12"
         >
           <div class="mb-2">
-            <label>наименование поля</label>
+            <label>наименование поля на английском</label>
+            <input
+              type="text"
+              class="minput"
+              v-model.trim="field.enFieldTitle"
+              required
+            />
+          </div>
+          <div class="mb-2">
+            <label>наименование поля на русском</label>
             <input
               type="text"
               class="minput"
@@ -141,6 +151,7 @@ const create = () => {
               required
             />
           </div>
+
           <div class="mb-2">
             <label>единицы измерения</label>
             <input
