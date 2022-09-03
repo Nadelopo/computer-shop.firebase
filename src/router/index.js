@@ -29,18 +29,7 @@ const routes = [
     name: 'Auth',
     component: () => import('@/views/Auth.vue'),
   },
-  {
-    path: '/admin',
-    name: 'Admin',
-    meta: { authAdmin: true },
-    component: () => import('@/views/Admin.vue'),
-  },
-  {
-    path: '/admin/products/:category',
-    name: 'AdminProducts',
-    meta: { authAdmin: true },
-    component: () => import('@/views/Admin.vue'),
-  },
+
   {
     path: '/profile',
     name: 'Profile',
@@ -56,6 +45,24 @@ const routes = [
     path: '/delivery',
     name: 'Delivery',
     component: () => import('@/views/Delivery.vue'),
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    meta: { authAdmin: true },
+    component: () => import('@/views/Admin.vue'),
+  },
+  {
+    path: '/admin/products/:category',
+    name: 'AdminProducts',
+    meta: { authAdmin: true },
+    component: () => import('@/views/AdminProducts.vue'),
+  },
+  {
+    path: '/admin/category',
+    name: 'AdminCreateCategory',
+    meta: { authAdmin: true },
+    component: () => import('@/views/AdminCategory.vue'),
   },
 
   // {

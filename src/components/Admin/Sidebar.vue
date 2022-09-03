@@ -42,7 +42,15 @@ onBeforeMount(async () => {
               </router-link>
             </div>
           </template>
-          <div class="li">создать категорию</div>
+          <div class="li">
+            <router-link
+              :to="{
+                name: 'AdminCreateCategory',
+              }"
+            >
+              создать категорию
+            </router-link>
+          </div>
         </div>
       </div>
     </div>
@@ -65,7 +73,7 @@ onBeforeMount(async () => {
 
 .li
   padding: 0 10px
-  transition:.3s ease
+  transition: .3s ease
   height: 0
   opacity: 0
   user-select: none
@@ -74,7 +82,7 @@ onBeforeMount(async () => {
 .active
   .li
     opacity: 1
-    transition:.3s ease
+    transition: .3s ease
     margin-bottom: 10px
     height: v-bind(heightList)
 </style>

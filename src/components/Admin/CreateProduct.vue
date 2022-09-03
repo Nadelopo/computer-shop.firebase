@@ -79,7 +79,7 @@ const cleanForm = () => {
 </script>
 
 <template>
-  <div class="p-4">
+  <div>
     <div>
       <div v-for="(field, index) in form.fields" :key="index">
         <div class="mb-6">
