@@ -52,6 +52,15 @@ watch(
               создать категорию
             </router-link>
           </div>
+          <div class="li">
+            <router-link
+              :to="{
+                name: 'AdminFilter',
+              }"
+            >
+              создать фильтр
+            </router-link>
+          </div>
         </div>
       </div>
     </div>

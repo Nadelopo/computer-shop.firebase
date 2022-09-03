@@ -64,6 +64,12 @@ const routes = [
     meta: { authAdmin: true },
     component: () => import('@/views/AdminCategory.vue'),
   },
+  {
+    path: '/admin/filter',
+    name: 'AdminFilter',
+    meta: { authAdmin: true },
+    component: () => import('@/views/AdminFilter.vue'),
+  },
 
   // {
   //   path: '/edit/:category/:id',

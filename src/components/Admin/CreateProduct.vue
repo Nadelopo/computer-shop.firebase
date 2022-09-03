@@ -22,36 +22,6 @@ const copyForm = ref({
   countRaits: 0,
 })
 
-// createCategory({
-//   fields: [
-//     { title: '', fieldTitle: 'сокет', type: true, visible: true },
-//     { title: '', fieldTitle: 'техпроцесс', type: true, visible: false },
-//     {
-//       title: 0,
-//       fieldTitle: 'Объем кэша L3',
-//       units: 'МБ',
-//       type: false,
-//       visible: false,
-//     },
-//     { title: 0, fieldTitle: 'количество ядер', type: false, visible: true },
-//     { title: 0, fieldTitle: 'количество потоков', type: false, visible: true },
-//     {
-//       title: 0,
-//       fieldTitle: 'минимальная частота',
-//       units: 'ГГц',
-//       type: false,
-//       visible: true,
-//     },
-//     {
-//       title: 0,
-//       fieldTitle: 'максимальная частота',
-//       units: 'ГГц',
-//       type: false,
-//       visible: true,
-//     },
-//   ],
-//   category: 'processors',
-// })
 const category = ref()
 
 const updateCategory = async () => {
