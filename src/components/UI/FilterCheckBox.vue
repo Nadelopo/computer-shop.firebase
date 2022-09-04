@@ -21,6 +21,7 @@ for (let key in route.query) {
 }
 
 const emit = defineEmits(['update:modelValue'])
+emit(`update:modelValue`, listener.value ? props.name : null)
 
 const updateValue = () => {
   emit(`update:modelValue`, !listener.value ? props.name : null)

@@ -37,41 +37,40 @@ export const filtersStore = defineStore('filters', {
   getters: {
     filterProducts: (state) =>
       state.categoryProducts.filter((e) => {
-        const result = []
+        const route = useRoute()
+        const query = route.query
 
+        let s = []
+        let man = []
+
+        // ПОФИКСИТЬ-------------------------------------------------------
         e.fields.forEach((f) => {
-          const field = []
-
-          state.copyFilter.forEach((c) => {
-            if (c.enTitle == f.enFieldTitle) {
-              for (let key in c) {
-                if (key != 'enTitle' && key != 'title') {
-                  if (c[key].title) field.push(c[key].title)
-                }
+          if (Object.keys(query).length) {
+            for (let key in query) {
+              if (key == f.enFieldTitle) {
+                if (!query[key]) s.push(true)
+                else s.push(query[key].includes(String(f.title)))
               }
-              result.push(field.includes(f.title))
-              if (field.length == 0) result.push(true)
             }
-          })
+          } else s.push(true)
         })
-
-        // фильтрация по производителю
-        const man = []
-        const manufactur = state.copyFilter.filter(
-          (m) => m.enTitle == 'manufacturer'
-        )[0]
-        for (let key in manufactur) {
-          if (key != 'enTitle' && key != 'title')
-            if (manufactur[key].title)
-              man.push(manufactur[key].title.toLocaleLowerCase())
-        }
-        //-----------------------------
+        // ----------------------------------------------------------------
 
         const filter =
-          e.price >= state.minP &&
+          (e.name.toLowerCase().includes(state.search.toLowerCase()) ||
+            !state.search) &&
           e.price <= state.maxP &&
-          (man.includes(e.manufacturer.toLocaleLowerCase()) || man.length == 0)
-        return filter && result.includes(true) && manufactur
+          e.price >= state.minP
+
+        if (Array.isArray(query.manufacturer)) {
+          query.manufacturer.forEach((m) => {
+            man.push(
+              m.toLocaleLowerCase() == e.manufacturer.toLocaleLowerCase()
+            )
+          })
+        } else man.push(true)
+
+        return filter && s.includes(true) && man.includes(true)
       }),
   },
   actions: {
