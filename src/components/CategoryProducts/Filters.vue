@@ -25,15 +25,22 @@ watch(
         v-model:maxVal="maxP"
         description="цена"
         en-description="price"
-        :max="300000"
         :step="500"
       />
 
       <div v-for="(item, index) in filterFields" :key="item.title">
-        <h1>{{ item.title }}</h1>
-        <div v-for="(g, i) in item" :key="g.id">
+        <h1 class="text-center">{{ item.title }}</h1>
+        <div v-if="item.type">
+          <FilterInputs
+            v-model:minVal="item.params.min"
+            v-model:maxVal="item.params.max"
+            :en-description="item.enTitle"
+            :step="item.params.step"
+          />
+        </div>
+        <div v-else v-for="(g, i) in item" :key="g.id">
           <FilterCheckBox
-            v-if="g != item.title && g != item.enTitle"
+            v-if="g != item.title && g != item.enTitle && g != item.type"
             :id="index + i"
             :name="g.title"
             :en-title="item.enTitle"

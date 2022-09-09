@@ -32,12 +32,21 @@ export const filtersStore = defineStore('filters', {
     const search = ''
     const [minP, maxP] = getNumberDataFromQuery('price')
 
-    return { categoryProducts, search, minP, maxP, filterFields, copyFilter }
+    return {
+      categoryProducts,
+      search,
+      minP,
+      maxP,
+      filterFields,
+      copyFilter,
+      getNumberDataFromQuery,
+    }
   },
   getters: {
     filterProducts: (state) =>
       state.categoryProducts.filter((e) => {
-        const result = []
+        const resultCheckbox = []
+        let resultInputs = false
 
         e.fields.forEach((f) => {
           const field = []
@@ -45,12 +54,15 @@ export const filtersStore = defineStore('filters', {
           state.copyFilter.forEach((c) => {
             if (c.enTitle == f.enFieldTitle) {
               for (let key in c) {
-                if (key != 'enTitle' && key != 'title') {
-                  if (c[key].title) field.push(c[key].title)
+                if (key != 'enTitle' && key != 'title' && key != 'type') {
+                  if (c.type) {
+                    const [min, max] = state.getNumberDataFromQuery(c.enTitle)
+                    if (f.title < max && f.title > min) resultInputs = true
+                  } else if (c[key].title) field.push(c[key].title)
                 }
               }
-              result.push(field.includes(f.title))
-              if (field.length == 0) result.push(true)
+              resultCheckbox.push(field.includes(f.title))
+              if (field.length == 0) resultCheckbox.push(true)
             }
           })
         })
@@ -70,14 +82,20 @@ export const filtersStore = defineStore('filters', {
         const filter =
           e.price >= state.minP &&
           e.price <= state.maxP &&
-          (man.includes(e.manufacturer.toLocaleLowerCase()) || man.length == 0)
-        return filter && result.includes(true) && manufactur
+          (man.includes(e.manufacturer.toLocaleLowerCase()) ||
+            man.length == 0) &&
+          e.name.toLocaleLowerCase().includes(state.search.toLocaleLowerCase())
+        log(resultInputs)
+        return (
+          filter && resultCheckbox.includes(true) && manufactur && resultInputs
+        )
       }),
   },
   actions: {
     async updateFilters(category) {
       const dataDb = await getFilter(category)
       if (dataDb) {
+        dataDb.q.sort((a, b) => a.type - b.type).reverse()
         this.filterFields = dataDb.q
         this.copyFilter = JSON.parse(JSON.stringify(this.filterFields))
         this.copyFilter = this.copyFilter.map((e) => {

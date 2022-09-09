@@ -3,12 +3,14 @@ import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 const props = defineProps([
   'description',
-  'max',
   'step',
   'maxVal',
   'minVal',
   'enDescription',
 ])
+
+const max = props.maxVal
+
 const route = useRoute()
 const router = useRouter()
 
@@ -39,7 +41,7 @@ const filter = () => {
 
   if (minPric.value < 0 || !minPric.value) minPric.value = 0
 
-  if (maxPric.value > props.max || !maxPric.value) maxPric.value = props.max
+  if (maxPric.value > max || !maxPric.value) maxPric.value = max
 
   router.push({
     query: {
