@@ -8,9 +8,9 @@ import Navbar from '@/components/Navbar.vue'
 </template>
 
 <style lang="sass">
-@tailwind base
-@tailwind components
-@tailwind utilities
+@import "tailwindcss/base"
+@import "tailwindcss/components"
+@import "tailwindcss/utilities"
 
 :root
   --shadow: rgba(0, 0, 0, 0.1)

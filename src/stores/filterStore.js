@@ -57,7 +57,7 @@ export const filtersStore = defineStore('filters', {
                 if (key != 'enTitle' && key != 'title' && key != 'type') {
                   if (c.type) {
                     const [min, max] = state.getNumberDataFromQuery(c.enTitle)
-                    if (f.title < max && f.title > min) resultInputs = true
+                    if (f.title <= max && f.title >= min) resultInputs = true
                   } else if (c[key].title) field.push(c[key].title)
                 }
               }
@@ -85,7 +85,7 @@ export const filtersStore = defineStore('filters', {
           (man.includes(e.manufacturer.toLocaleLowerCase()) ||
             man.length == 0) &&
           e.name.toLocaleLowerCase().includes(state.search.toLocaleLowerCase())
-        log(resultInputs)
+
         return (
           filter && resultCheckbox.includes(true) && manufactur && resultInputs
         )
