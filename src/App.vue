@@ -79,10 +79,10 @@ body::-webkit-scrollbar-thumb
       outline: 2px solid var(--color-text)
 
 .container
-  margin-right: auto
-  margin-left: auto
-  width: 100%
+  margin: 0 auto
   padding: 6px 12px
+  @media (min-width: 1536px)
+    padding: 0 50px
 
 .minput
   all: unset
@@ -104,16 +104,4 @@ progress::-webkit-progress-bar
 
 progress::-webkit-progress-value
   background: var(--color-main)
-
-// @media(min-width: 1400px)
-//   .container
-//       width: 	1320px
-
-// @media (min-width: 1399px) and (max-width: 1200px)
-//   .container
-//     width: 1140px
-
-// @media (min-width: 1199px) and (max-width: 992px)
-//   .container
-//     width: 960px
 </style>

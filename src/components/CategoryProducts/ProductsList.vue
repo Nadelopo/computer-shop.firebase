@@ -33,14 +33,20 @@ const { filterProducts } = storeToRefs(filtersStore())
 </script>
 
 <template>
-  <div class="container">
-    <Search />
-    <div class="flex flex-col gap-4">
-      <div v-for="(item, index) in filterProducts" :key="index">
-        <ProductBlock :item="item" />
+  <div>
+    <div class="wrapper">
+      <Search />
+      <div class="flex flex-col gap-4">
+        <div v-for="(item, index) in filterProducts" :key="index">
+          <ProductBlock :item="item" />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
-<style scoped lang="sass"></style>
+<style scoped lang="sass">
+
+.wrapper
+  padding: 6px 12px
+</style>
