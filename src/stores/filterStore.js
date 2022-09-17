@@ -46,7 +46,7 @@ export const filtersStore = defineStore('filters', {
     filterProducts: (state) =>
       state.categoryProducts.filter((e) => {
         const resultCheckbox = []
-        let resultInputs = false
+        const resultInputs = []
 
         e.fields.forEach((f) => {
           const field = []
@@ -57,8 +57,11 @@ export const filtersStore = defineStore('filters', {
                 if (key != 'enTitle' && key != 'title' && key != 'type') {
                   if (c.type) {
                     const [min, max] = state.getNumberDataFromQuery(c.enTitle)
-                    if (f.title <= max && f.title >= min) resultInputs = true
+                    if (f.title <= max && f.title >= min) {
+                      resultInputs.push(true)
+                    }
                   } else if (c[key].title) field.push(c[key].title)
+                  else resultInputs.push(true)
                 }
               }
               resultCheckbox.push(field.includes(f.title))
@@ -87,7 +90,10 @@ export const filtersStore = defineStore('filters', {
           e.name.toLocaleLowerCase().includes(state.search.toLocaleLowerCase())
 
         return (
-          filter && resultCheckbox.includes(true) && manufactur && resultInputs
+          filter &&
+          resultCheckbox.includes(true) &&
+          manufactur &&
+          resultInputs.includes(true)
         )
       }),
   },

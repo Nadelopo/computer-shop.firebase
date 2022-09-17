@@ -56,7 +56,7 @@ const filter = () => {
 
 <template>
   <div>
-    <div class="text-center mb-2 mt-4">{{ description }}</div>
+    <div class="text-center my-2">{{ description }}</div>
     <div class="grid">
       <div class="text-end">
         <input

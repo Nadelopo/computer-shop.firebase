@@ -29,11 +29,11 @@ watch(
       />
 
       <div v-for="(item, index) in filterFields" :key="item.title">
-        <h1 class="text-center">{{ item.title }}</h1>
         <div v-if="item.type">
           <FilterInputs
             v-model:minVal="item.params.min"
             v-model:maxVal="item.params.max"
+            :description="item.title"
             :en-description="item.enTitle"
             :step="item.params.step"
           />
