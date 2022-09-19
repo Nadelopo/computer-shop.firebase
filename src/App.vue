@@ -59,7 +59,7 @@ body::-webkit-scrollbar-thumb
     transform: scale(0.9)
   &:focus-visible
     outline: 1px solid var(--color-text)
-  &__notactive
+  &__noactive
     border-radius: 4px
     padding: 0.375rem 0.75rem
     cursor: pointer

@@ -17,7 +17,7 @@ defineEmits(['update:modelValue'])
   <div class="wrap">
     <button
       type="button"
-      :class="modelValue ? 'btn' : 'btn__notactive'"
+      :class="modelValue ? 'btn' : 'btn__noactive'"
       @click="$emit('update:modelValue', true)"
     >
       {{ textfirst }}
@@ -25,7 +25,7 @@ defineEmits(['update:modelValue'])
     <button
       type="button"
       class="btn"
-      :class="!modelValue ? 'btn' : 'btn__notactive'"
+      :class="!modelValue ? 'btn' : 'btn__noactive'"
       @click="$emit('update:modelValue', false)"
     >
       {{ textsecond }}
