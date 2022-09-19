@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { filtersStore } from '@/stores/filterStore'
+
 const props = defineProps([
   'description',
   'step',
@@ -21,6 +23,11 @@ const minRef = ref(null)
 const maxRef = ref(null)
 
 const emit = defineEmits(['update:maxVal', 'update:minVal'])
+
+const { getNumberDataFromQuery } = filtersStore()
+const [minQuery, maxQuery] = getNumberDataFromQuery(props.enDescription)
+minPric.value = minQuery
+maxPric.value = maxQuery
 
 const filter = () => {
   // удаление нулей перед числами

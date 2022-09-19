@@ -59,7 +59,7 @@ export const filtersStore = defineStore('filters', {
                     const [min, max] = state.getNumberDataFromQuery(c.enTitle)
                     if (f.title <= max && f.title >= min) {
                       resultInputs.push(true)
-                    }
+                    } else resultInputs.push(false)
                   } else if (c[key].title) field.push(c[key].title)
                   else resultInputs.push(true)
                 }
@@ -93,7 +93,7 @@ export const filtersStore = defineStore('filters', {
           filter &&
           resultCheckbox.includes(true) &&
           manufactur &&
-          resultInputs.includes(true)
+          !resultInputs.includes(false)
         )
       }),
   },
