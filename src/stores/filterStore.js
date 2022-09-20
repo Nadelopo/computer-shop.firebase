@@ -3,6 +3,7 @@ import { productsStore } from './productsStore'
 import { ref } from 'vue'
 import { getFilter } from '@/firebase'
 import { useRoute } from 'vue-router'
+import { filterProds } from './utils/filterProducts'
 const { log } = console
 log
 export const filtersStore = defineStore('filters', {
@@ -43,59 +44,7 @@ export const filtersStore = defineStore('filters', {
     }
   },
   getters: {
-    filterProducts: (state) =>
-      state.categoryProducts.filter((e) => {
-        const resultCheckbox = []
-        const resultInputs = []
-
-        e.fields.forEach((f) => {
-          const field = []
-
-          state.copyFilter.forEach((c) => {
-            if (c.enTitle == f.enFieldTitle) {
-              for (let key in c) {
-                if (key != 'enTitle' && key != 'title' && key != 'type') {
-                  if (c.type) {
-                    const [min, max] = state.getNumberDataFromQuery(c.enTitle)
-                    if (f.title <= max && f.title >= min) {
-                      resultInputs.push(true)
-                    } else resultInputs.push(false)
-                  } else if (c[key].title) field.push(c[key].title)
-                  else resultInputs.push(true)
-                }
-              }
-              resultCheckbox.push(field.includes(f.title))
-              if (field.length == 0) resultCheckbox.push(true)
-            }
-          })
-        })
-
-        // фильтрация по производителю
-        const man = []
-        const manufactur = state.copyFilter.filter(
-          (m) => m.enTitle == 'manufacturer'
-        )[0]
-        for (let key in manufactur) {
-          if (key != 'enTitle' && key != 'title')
-            if (manufactur[key].title)
-              man.push(manufactur[key].title.toLocaleLowerCase())
-        }
-        //-----------------------------
-
-        const filter =
-          e.price >= state.minP &&
-          e.price <= state.maxP &&
-          (man.includes(e.manufacturer.toLocaleLowerCase()) ||
-            man.length == 0) &&
-          e.name.toLocaleLowerCase().includes(state.search.toLocaleLowerCase())
-
-        return (
-          filter &&
-          resultCheckbox.includes(true) &&
-          manufactur &&
-          !resultInputs.includes(false)
-        )
-      }),
+    filterProducts: (state) => filterProds(state),
   },
   actions: {
     async updateFilters(category) {
@@ -118,32 +67,3 @@ export const filtersStore = defineStore('filters', {
     },
   },
 })
-
-// const translate = [
-//   ['я', 'z'],
-//   ['ч', 'x'],
-//   ['с', 'c'],
-//   ['м', 'v'],
-//   ['и', 'b'],
-//   ['т', 'n'],
-//   ['ь', 'm'],
-//   ['ф', 'a'],
-//   ['ы', 's'],
-//   ['в', 'd'],
-//   ['а', 'f'],
-//   ['п', 'g'],
-//   ['р', 'h'],
-//   ['о', 'j'],
-//   ['л', 'k'],
-//   ['д', 'l'],
-//   ['й', 'q'],
-//   ['ц', 'w'],
-//   ['у', 'e'],
-//   ['к', 'r'],
-//   ['е', 't'],
-//   ['н', 'y'],
-//   ['г', 'u'],
-//   ['ш', 'i'],
-//   ['щ', 'o'],
-//   ['з', 'p'],
-// ]

@@ -1,4 +1,5 @@
 <script setup>
+import CartButton from '../UI/CartButton.vue'
 defineProps({
   item: {
     type: Object,
@@ -12,7 +13,7 @@ defineProps({
     <div><img :src="item.img" alt="" /></div>
 
     <div>
-      <div class="click">
+      <div class="cart__link">
         <div class="mb-4 text-lg">{{ item.name }}</div>
         <div
           v-for="field in item.fields"
@@ -26,7 +27,10 @@ defineProps({
         </div>
       </div>
     </div>
-    <div>{{ item.price }} ₽</div>
+    <div class="flex flex-col gap-y-3">
+      <div>{{ item.price }} ₽</div>
+      <div><CartButton :product-id="item.id" /></div>
+    </div>
   </div>
 </template>
 
@@ -45,7 +49,7 @@ defineProps({
     transition: 0.5s
     box-shadow: rgb(0, 0, 0 , .25) 0px 0px 15px 5px
 
-.click
+.cart__link
   cursor: pointer
   transition: 1s
   &:hover
