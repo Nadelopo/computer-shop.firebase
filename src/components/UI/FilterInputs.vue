@@ -25,19 +25,20 @@ const maxRef = ref(null)
 const emit = defineEmits(['update:maxVal', 'update:minVal'])
 
 const { getNumberDataFromQuery } = filtersStore()
-const [minQuery, maxQuery] = getNumberDataFromQuery(props.enDescription)
-minPric.value = minQuery
-maxPric.value = maxQuery
+
+if (Object.keys(route.query).includes(props.enDescription)) {
+  const [minQuery, maxQuery] = getNumberDataFromQuery(props.enDescription)
+  minPric.value = minQuery
+  maxPric.value = maxQuery
+}
 
 const filter = () => {
   // удаление нулей перед числами
   if (minRef.value.value[0] == 0)
     minRef.value.value = minRef.value.value.substring(1)
-
   if (maxRef.value.value[0] == 0)
     maxRef.value.value = maxRef.value.value.substring(1)
 
-  //
   const minprice = minPric.value
   const maxprice = maxPric.value
 
