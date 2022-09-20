@@ -3,6 +3,7 @@ import { filtersStore } from '@/stores/filterStore'
 import { storeToRefs } from 'pinia'
 import ProductBlock from './ProductBlock.vue'
 import Search from './Search.vue'
+import SkeletonProduct from './SkeletonProduct.vue'
 
 const { filterProducts } = storeToRefs(filtersStore())
 
@@ -37,7 +38,12 @@ const { filterProducts } = storeToRefs(filtersStore())
     <div class="wrapper">
       <Search />
       <div class="flex flex-col gap-4">
-        <div v-for="(item, index) in filterProducts" :key="index">
+        <template v-if="!filterProducts.length">
+          <div v-for="i in 5" :key="i">
+            <SkeletonProduct />
+          </div>
+        </template>
+        <div v-else v-for="(item, index) in filterProducts" :key="index">
           <ProductBlock :item="item" />
         </div>
       </div>

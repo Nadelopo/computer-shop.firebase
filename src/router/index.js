@@ -70,6 +70,11 @@ const routes = [
     meta: { authAdmin: true },
     component: () => import('@/views/AdminFilter.vue'),
   },
+  {
+    path: '/cart',
+    name: 'Cart',
+    component: () => import('@/views/Cart.vue'),
+  },
 
   // {
   //   path: '/edit/:category/:id',

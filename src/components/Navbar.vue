@@ -110,7 +110,9 @@ const checkAuth = () => {
             <FavouritesSVG fill="#fff" width="25" class="cursor-pointer" />
           </div>
           <div>
-            <img src="@/assets/img/shopCart.png" class="cart__icon" alt="" />
+            <router-link :to="{ name: 'Cart' }">
+              <img src="@/assets/img/shopCart.png" class="cart__icon" alt="" />
+            </router-link>
           </div>
         </div>
       </div>

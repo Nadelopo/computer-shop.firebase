@@ -5,6 +5,7 @@ import { storeToRefs } from 'pinia'
 import { watch } from 'vue'
 import FilterCheckBox from '../UI/FilterCheckBox.vue'
 import { useRoute } from 'vue-router'
+import SkeletinFIlter from './SkeletinFIlter.vue'
 
 const { minP, maxP, filterFields, copyFilter } = storeToRefs(filtersStore())
 const { updateFilters } = filtersStore()
@@ -19,7 +20,10 @@ watch(
 
 <template>
   <div>
-    <div class="root" v-if="copyFilter.length">
+    <div v-if="!copyFilter.length">
+      <SkeletinFIlter />
+    </div>
+    <div v-else class="root">
       <FilterInputs
         v-model:minVal="minP"
         v-model:maxVal="maxP"

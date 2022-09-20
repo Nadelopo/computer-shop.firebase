@@ -65,7 +65,7 @@ const filter = () => {
   <div>
     <div class="text-center my-2">{{ description }}</div>
     <div class="grid">
-      <div class="text-end">
+      <div>
         <input
           @keyup.enter="filter"
           @input="filter"
@@ -82,7 +82,7 @@ const filter = () => {
       <div>
         <div class="line"></div>
       </div>
-      <div class="text-start">
+      <div class="text-end">
         <input
           @keyup.enter="filter"
           @input="filter"
