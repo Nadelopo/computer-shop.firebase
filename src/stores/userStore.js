@@ -19,7 +19,7 @@ export const usersStore = defineStore('users', {
         userEmail.value = null
       }
     })
-    return { user, userEmail }
+    return { user, userEmail, userId }
   },
   actions: {
     async getCurrentUserId() {
@@ -31,7 +31,7 @@ export const usersStore = defineStore('users', {
       return userId.email
     },
     async getCurrentUserData() {
-      const user = await getProfile((await firebase.getCurrentUser()).uid)
+      const user = await getProfile((await firebase.getCurrentUser())?.uid)
       return user
     },
   },

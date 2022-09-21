@@ -1,5 +1,5 @@
 <script setup>
-import ProductsBlock from '../components/CategoryProducts/ProductsList.vue'
+import ProductsList from '../components/CategoryProducts/ProductsList.vue'
 import Filters from '../components/CategoryProducts/Filters.vue'
 </script>
 
@@ -7,7 +7,7 @@ import Filters from '../components/CategoryProducts/Filters.vue'
   <div>
     <div class="container grid">
       <Filters />
-      <ProductsBlock />
+      <ProductsList />
     </div>
   </div>
 </template>

@@ -70,6 +70,7 @@ onUnmounted(() => removeEventListener('click', checkClick))
 
 <style scoped lang="sass">
 .wrapper
+  z-index: 100
   width: 100%
   position: absolute
   height: 100%

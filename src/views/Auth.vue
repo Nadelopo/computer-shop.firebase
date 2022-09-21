@@ -52,7 +52,8 @@ const signUp = () => {
           productsId: [],
           name: name.value,
           phone: '',
-          Favourites: [],
+          favourites: [],
+          cart: [],
         }),
           router.push('/')
       },

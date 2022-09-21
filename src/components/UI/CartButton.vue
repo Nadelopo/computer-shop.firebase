@@ -27,7 +27,7 @@ const addProductInCart = () => {
 }
 
 const checkProductInCart = computed(() => {
-  return cartProducts.value.filter((e) => e.id == props.productId).length
+  return cartProducts?.value.filter((e) => e.id == props.productId).length
 })
 </script>
 
