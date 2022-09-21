@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { filtersStore } from '@/stores/filterStore'
+import { debounce } from '@/utils/debounce'
 
 const props = defineProps([
   'description',
@@ -60,6 +61,8 @@ const filter = () => {
   emit('update:minVal', minPric.value)
   emit('update:maxVal', maxPric.value)
 }
+
+const filterDebounce = debounce(filter, 500)
 </script>
 
 <template>
@@ -68,8 +71,8 @@ const filter = () => {
     <div class="grid">
       <div>
         <input
-          @keyup.enter="filter"
-          @input="filter"
+          @keyup.enter="filterDebounce"
+          @input="filterDebounce"
           :step="step"
           min="0"
           :max="max"
@@ -85,8 +88,8 @@ const filter = () => {
       </div>
       <div class="text-end">
         <input
-          @keyup.enter="filter"
-          @input="filter"
+          @keyup.enter="filterDebounce"
+          @input="filterDebounce"
           :step="step"
           min="0"
           :max="max"

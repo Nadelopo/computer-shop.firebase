@@ -1,6 +1,7 @@
 <script setup>
 import { filtersStore } from '@/stores/filterStore'
 import { storeToRefs } from 'pinia'
+import { onMounted, ref } from 'vue'
 import ProductBlock from './ProductBlock.vue'
 import Search from './Search.vue'
 import SkeletonProduct from './SkeletonProduct.vue'
@@ -31,6 +32,10 @@ const { filterProducts } = storeToRefs(filtersStore())
 //     price: 23390,
 //   })
 // }
+const loading = ref(false)
+onMounted(() => {
+  setTimeout(() => (loading.value = true), 5000)
+})
 </script>
 
 <template>
@@ -38,7 +43,15 @@ const { filterProducts } = storeToRefs(filtersStore())
     <div class="wrapper">
       <Search />
       <div class="flex flex-col gap-4">
-        <template v-if="!filterProducts.length">
+        <template v-if="!filterProducts.length && loading">
+          <div class="flex justify-center">
+            <div class="text-xl text-center font-semibold pt-8 w-4/6">
+              К сожалению, по вашему запросу ничего не найдено. Проверьте
+              правильность ввода или попробуйте изменить запрос.
+            </div>
+          </div>
+        </template>
+        <template v-else-if="!filterProducts.length">
           <div v-for="i in 5" :key="i">
             <SkeletonProduct />
           </div>
