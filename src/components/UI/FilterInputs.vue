@@ -1,16 +1,35 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { filtersStore } from '@/stores/filterStore'
-import { debounce } from '@/utils/debounce'
+import { getNumberDataFromQuery } from '@/utils/getNumberDataFromQuery'
+// import { debounce } from '@/utils/debounce'
 
-const props = defineProps([
-  'description',
-  'step',
-  'maxVal',
-  'minVal',
-  'enDescription',
-])
+const props = defineProps({
+  description: {
+    type: String,
+    reuqired: true,
+  },
+  enDescription: {
+    type: String,
+    reuqired: true,
+  },
+  step: {
+    type: Number,
+    dafault: 2,
+  },
+  maxVal: {
+    type: Number,
+    reuqired: true,
+  },
+  minVal: {
+    type: Number,
+    reuqired: true,
+  },
+  trigger: {
+    type: Boolean,
+    reuqired: true,
+  },
+})
 
 const max = props.maxVal
 
@@ -24,8 +43,6 @@ const minRef = ref(null)
 const maxRef = ref(null)
 
 const emit = defineEmits(['update:maxVal', 'update:minVal'])
-
-const { getNumberDataFromQuery } = filtersStore()
 
 if (Object.keys(route.query).includes(props.enDescription)) {
   const [minQuery, maxQuery] = getNumberDataFromQuery(props.enDescription)
@@ -62,7 +79,12 @@ const filter = () => {
   emit('update:maxVal', maxPric.value)
 }
 
-const filterDebounce = debounce(filter, 500)
+// const filterDebounce = debounce(filter, 500)
+
+watch(
+  () => props.trigger,
+  () => filter()
+)
 </script>
 
 <template>
@@ -71,8 +93,6 @@ const filterDebounce = debounce(filter, 500)
     <div class="grid">
       <div>
         <input
-          @keyup.enter="filterDebounce"
-          @input="filterDebounce"
           :step="step"
           min="0"
           :max="max"
@@ -88,8 +108,6 @@ const filterDebounce = debounce(filter, 500)
       </div>
       <div class="text-end">
         <input
-          @keyup.enter="filterDebounce"
-          @input="filterDebounce"
           :step="step"
           min="0"
           :max="max"

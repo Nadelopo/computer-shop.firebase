@@ -2,13 +2,13 @@
 import FilterInputs from '../UI/FilterInputs.vue'
 import { filtersStore } from '@/stores/filterStore'
 import { storeToRefs } from 'pinia'
-import { watch } from 'vue'
+import { watch, ref } from 'vue'
 import FilterCheckBox from '../UI/FilterCheckBox.vue'
 import { useRoute } from 'vue-router'
 import SkeletinFIlter from './SkeletinFIlter.vue'
 
 const { minP, maxP, filterFields, copyFilter } = storeToRefs(filtersStore())
-const { updateFilters } = filtersStore()
+const { updateFilters, updateFilterProducts } = filtersStore()
 
 const route = useRoute()
 updateFilters(route.params.category)
@@ -16,6 +16,12 @@ watch(
   () => route.params.category,
   (cur) => updateFilters(cur)
 )
+
+const filterTrigger = ref(false)
+const apply = () => {
+  filterTrigger.value = !filterTrigger.value
+  updateFilterProducts(route)
+}
 </script>
 
 <template>
@@ -25,6 +31,7 @@ watch(
     </div>
     <div v-else class="root">
       <FilterInputs
+        :trigger="filterTrigger"
         v-model:minVal="minP"
         v-model:maxVal="maxP"
         description="цена"
@@ -36,6 +43,7 @@ watch(
         <div class="text-center my-2">{{ item.title }}</div>
         <div v-if="item.type">
           <FilterInputs
+            :trigger="filterTrigger"
             v-model:minVal="item.params.min"
             v-model:maxVal="item.params.max"
             :en-description="item.enTitle"
@@ -52,6 +60,9 @@ watch(
             v-model="copyFilter[index][i].title"
           />
         </div>
+      </div>
+      <div class="flex justify-center">
+        <button class="btn" @click="apply">применить</button>
       </div>
     </div>
   </div>

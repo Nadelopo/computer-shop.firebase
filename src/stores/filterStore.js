@@ -2,32 +2,17 @@ import { defineStore, storeToRefs } from 'pinia'
 import { productsStore } from './productsStore'
 import { ref } from 'vue'
 import { getFilter } from '@/firebase'
-import { useRoute } from 'vue-router'
-import { filterProds } from './utils/filterProducts'
+// import { filterProds } from '@/utils/filterProducts'
+import { getNumberDataFromQuery } from '@/utils/getNumberDataFromQuery'
 const { log } = console
 log
 export const filtersStore = defineStore('filters', {
   state: () => {
     const { categoryProducts } = storeToRefs(productsStore())
 
-    const getNumberDataFromQuery = (where) => {
-      const route = useRoute()
-      const query = route.query
-      let min
-      let max
-      if (query[where]) {
-        min = Number(query[where].split('-')[0])
-        max = Number(query[where].split('-')[1])
-      } else {
-        min = 0
-        max = 300000
-      }
-
-      return [min, max]
-    }
-
     const filterFields = ref([])
     const copyFilter = ref([])
+    const filterProducts = ref([])
 
     // filter variables
     const search = ''
@@ -40,11 +25,11 @@ export const filtersStore = defineStore('filters', {
       maxP,
       filterFields,
       copyFilter,
-      getNumberDataFromQuery,
+      filterProducts,
     }
   },
   getters: {
-    filterProducts: (state) => filterProds(state),
+    // filterProducts: (state) => filterProds(state),
   },
   actions: {
     async updateFilters(category) {
@@ -64,6 +49,20 @@ export const filtersStore = defineStore('filters', {
       } else {
         this.copyFilter = []
       }
+    },
+    updateFilterProducts(route) {
+      this.categoryProducts.filter((product) => {
+        // const resultInputs = []
+        for (let key in product.fields) {
+          this.copyFilter.forEach((f) => {
+            if (f.type && !product.fields[key].type) {
+              const [min, max] = getNumberDataFromQuery(f.enTitle, route)
+              log(min, max)
+            }
+          })
+        }
+        return true
+      })
     },
   },
 })
