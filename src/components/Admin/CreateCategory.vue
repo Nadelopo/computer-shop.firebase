@@ -148,16 +148,16 @@ const create = () => {
           <div class="mb-2">тип поля</div>
           <DoubleButtons
             v-model="field.type"
-            textfirst="текст"
-            textsecond="число"
+            text-first="текст"
+            text-second="число"
           />
         </div>
         <div class="mb-2">
           <div class="mb-2">отображение на карточке товара</div>
           <DoubleButtons
             v-model="field.visible"
-            textfirst="да"
-            textsecond="нет"
+            text-first="да"
+            text-second="нет"
           />
         </div>
       </div>

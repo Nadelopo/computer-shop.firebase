@@ -1,10 +1,10 @@
 <script setup>
 defineProps({
-  textfirst: {
+  textFirst: {
     type: String,
     default: 'true',
   },
-  textsecond: {
+  textSecond: {
     type: String,
     default: 'false',
   },
@@ -20,7 +20,7 @@ defineEmits(['update:modelValue'])
       :class="modelValue ? 'btn' : 'btn__noactive'"
       @click="$emit('update:modelValue', true)"
     >
-      {{ textfirst }}
+      {{ textFirst }}
     </button>
     <button
       type="button"
@@ -28,7 +28,7 @@ defineEmits(['update:modelValue'])
       :class="!modelValue ? 'btn' : 'btn__noactive'"
       @click="$emit('update:modelValue', false)"
     >
-      {{ textsecond }}
+      {{ textSecond }}
     </button>
   </div>
 </template>

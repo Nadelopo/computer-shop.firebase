@@ -4,6 +4,7 @@ import AdminWrapper from '../components/Admin/AdminWrapper.vue'
 import { categoriesStore } from '../stores/categoriesStore'
 import { addFilter } from '@/firebase'
 import { ref, computed, watch } from 'vue'
+import DoubleButtons from '@/components/UI/DoubleButtons.vue'
 
 const { categories } = storeToRefs(categoriesStore())
 const currentCategoryIndex = ref(0)
@@ -93,18 +94,11 @@ const createFilter = () => {
       <div class="my-8">
         <div>
           <div class="flex gap-x-4">
-            <button
-              :class="typeFilter ? 'btn' : 'btn__noactive'"
-              @click="typeFilter = true"
-            >
-              числовой
-            </button>
-            <button
-              :class="!typeFilter ? 'btn' : 'btn__noactive'"
-              @click="typeFilter = false"
-            >
-              чекбокс
-            </button>
+            <DoubleButtons
+              v-model="typeFilter"
+              text-first="числовой"
+              text-second="чекбокс"
+            />
           </div>
         </div>
       </div>
