@@ -83,20 +83,20 @@ const create = () => {
 
 <template>
   <div>
-    <form @submit.prevent="create" method="get">
+    <form method="get" @submit.prevent="create">
       <div class="mb-6">
         <label>изображение</label>
         <input
           type="file"
           class="minput"
-          @change="previewImage"
           accept="image/*"
           required
+          @change="previewImage"
         />
         <div class="mt-2">
           <p>
             Progress: {{ uploadValue.toFixed() + '%' }}
-            <progress id="progress" :value="uploadValue" max="100"></progress>
+            <progress id="progress" :value="uploadValue" max="100" />
           </p>
         </div>
 
@@ -110,18 +110,18 @@ const create = () => {
       <div class="mb-2">
         <label>наименование на английском</label>
         <input
+          v-model.trim="category.category"
           type="text"
           class="minput"
-          v-model.trim="category.category"
           required
         />
       </div>
       <div class="mb-2">
         <label>наименование на русском</label>
         <input
+          v-model.trim="category.name"
           type="text"
           class="minput"
-          v-model.trim="category.name"
           required
         />
       </div>
@@ -129,18 +129,18 @@ const create = () => {
         <div class="mb-2">
           <label>наименование поля</label>
           <input
+            v-model.trim="field.fieldTitle"
             type="text"
             class="minput"
-            v-model.trim="field.fieldTitle"
             required
           />
         </div>
         <div class="mb-2">
           <label>единицы измерения</label>
           <input
+            v-model.trim="field.units"
             type="text"
             class="minput"
-            v-model.trim="field.units"
             required
           />
         </div>

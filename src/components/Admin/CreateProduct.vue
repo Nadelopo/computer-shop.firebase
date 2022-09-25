@@ -55,10 +55,10 @@ const cleanForm = () => {
         <div class="mb-6">
           <label>{{ field.fieldTitle }}</label>
           <input
+            v-model.trim="field.title"
             :type="field.type ? 'text' : 'number'"
             class="minput"
             min="0"
-            v-model.trim="field.title"
           />
         </div>
       </div>

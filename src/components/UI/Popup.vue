@@ -20,7 +20,7 @@ watch(isOpen, () => {
       <slot name="active" class="popup__slotdgh345c"></slot>
     </div>
     <transition name="popup__animation">
-      <div class="popup__contentlksdn553" v-if="isOpen">
+      <div v-if="isOpen" class="popup__contentlksdn553">
         <slot name="content"></slot>
       </div>
     </transition>

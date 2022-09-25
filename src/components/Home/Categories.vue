@@ -7,7 +7,7 @@ const { categories } = storeToRefs(categoriesStore())
 
 <template>
   <div class="container">
-    <div class="grid" v-if="categories">
+    <div v-if="categories" class="grid">
       <div v-for="category in categories.arr" :key="category.img">
         <div
           class="lev"
@@ -41,16 +41,12 @@ const { categories } = storeToRefs(categoriesStore())
   align-content: center
   cursor: pointer
 
-
-
-
 .text1
   font-weight: 600
   font-size: 20px
   transition: .2s
   .lev:hover &
     color: var(--color-text)
-
 
 .grid
   display: grid

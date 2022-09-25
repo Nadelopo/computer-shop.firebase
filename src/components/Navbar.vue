@@ -120,8 +120,8 @@ const open = ref(false)
                 </router-link>
 
                 <router-link
-                  :to="{ name: 'Admin' }"
                   v-if="userEmail == 'admin@admin.admin'"
+                  :to="{ name: 'Admin' }"
                 >
                   admin
                 </router-link>

@@ -4,13 +4,30 @@ import { defineProps, ref } from 'vue'
 
 const router = useRouter()
 const route = useRoute()
+
 const props = defineProps({
-  id: [String, Number],
-  name: [String, Number],
-  dop: String,
-  title: String,
-  enTitle: String,
+  id: {
+    type: String,
+    required: true,
+  },
+  name: {
+    type: String,
+    required: true,
+  },
+  dop: {
+    type: String,
+    default: '',
+  },
+  title: {
+    type: String,
+    default: '',
+  },
+  enTitle: {
+    type: String,
+    required: true,
+  },
 })
+
 let listener = ref('')
 for (let key in route.query) {
   if (key == props.enTitle) {
@@ -55,9 +72,9 @@ const updateValue = () => {
         <label :for="id" class="label-cbx">
           <input
             :id="id"
+            v-model="listener"
             type="checkbox"
             class="invisible"
-            v-model="listener"
             @input="updateValue"
           />
           <div class="checkbox">

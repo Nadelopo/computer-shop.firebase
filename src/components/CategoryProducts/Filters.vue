@@ -30,34 +30,36 @@ const apply = () => {
       <SkeletinFIlter />
     </div>
     <div v-else class="root">
-      <FilterInputs
-        :trigger="filterTrigger"
-        v-model:minVal="minP"
-        v-model:maxVal="maxP"
-        description="цена"
-        en-description="price"
-        :step="500"
-      />
+      <div>
+        <div class="text-center my-2">цена</div>
+        <FilterInputs
+          v-model:minVal="minP"
+          v-model:maxVal="maxP"
+          :trigger="filterTrigger"
+          en-description="price"
+          :step="500"
+        />
+      </div>
 
       <div v-for="(item, index) in filterFields" :key="item.title">
         <div class="text-center my-2">{{ item.title }}</div>
         <div v-if="item.type">
           <FilterInputs
-            :trigger="filterTrigger"
             v-model:minVal="item.params.min"
             v-model:maxVal="item.params.max"
+            :trigger="filterTrigger"
             :en-description="item.enTitle"
             :step="item.params.step"
           />
         </div>
-        <div v-else v-for="(g, i) in item" :key="g.id">
+        <div v-for="(g, i) in item" v-else :key="g.id">
           <FilterCheckBox
             v-if="g != item.title && g != item.enTitle && g != item.type"
             :id="index + i"
+            v-model="copyFilter[index][i].title"
             :name="g.title"
             :en-title="item.enTitle"
             :title="item.title"
-            v-model="copyFilter[index][i].title"
           />
         </div>
       </div>

@@ -20,7 +20,7 @@ defineProps({
           :key="field.fieldTitle"
           class="flex flex-col gap-2"
         >
-          <div class="flex gap-2" v-if="field.visible">
+          <div v-if="field.visible" class="flex gap-2">
             <div>{{ field.fieldTitle }}</div>
             <div>{{ field.title }} {{ field?.units }}</div>
           </div>

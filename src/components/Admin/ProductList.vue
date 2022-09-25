@@ -36,7 +36,9 @@ const { categoryProducts } = storeToRefs(productsStore())
             {{ productField.title }} {{ productField.units }}
           </td>
           <td>{{ product.manufacturer }}</td>
-          <td><img :src="product.img" alt="" /></td>
+          <td>
+            <img :src="product.img" alt="" />
+          </td>
           <td>{{ product.warranty }} мес</td>
           <td>{{ product.price }} Р</td>
           <td>

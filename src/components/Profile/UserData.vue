@@ -79,9 +79,9 @@ const reset = async () => {
             <div>Email:</div>
             <div>
               <input
+                v-model="changeEmail"
                 type="email"
                 class="minput"
-                v-model="changeEmail"
                 required
               />
             </div>
@@ -90,11 +90,11 @@ const reset = async () => {
             <div>Телефон:</div>
             <div>
               <input
+                v-model="changePhone"
                 type="text"
                 class="minput"
                 pattern="[8]\s\d{3}\s\d{3}\s\d{2}\s\d{2}"
                 title="8 999 888 77 66"
-                v-model="changePhone"
               />
             </div>
           </div>
@@ -102,9 +102,9 @@ const reset = async () => {
             <div>Имя:</div>
             <div>
               <input
+                v-model="changeName"
                 type="text"
                 class="minput"
-                v-model="changeName"
                 minlength="3"
                 required
               />

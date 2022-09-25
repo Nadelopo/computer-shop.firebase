@@ -28,10 +28,10 @@ watch(
         <div class="list" :class="{ active: isVisible[0] }">
           <template v-if="categories">
             <div
-              class="li"
-              ref="listRef"
               v-for="categoryq in categories.arr"
               :key="categoryq.name"
+              ref="listRef"
+              class="li"
             >
               <router-link
                 :to="{

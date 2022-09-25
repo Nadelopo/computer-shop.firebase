@@ -67,26 +67,26 @@ const deleteImage = (img) => {
 
 <template>
   <div>
-    <form @submit.prevent="createProduct" class="mb-16" v-if="form">
+    <form v-if="form" class="mb-16" @submit.prevent="createProduct">
       <div class="mb-6">
         <label>наименование</label>
-        <input type="text" class="minput" v-model.trim="form.name" required />
+        <input v-model.trim="form.name" type="text" class="minput" required />
       </div>
       <div class="mb-6">
         <label>описание</label>
         <input
+          v-model.trim="form.description"
           type="text"
           class="minput"
-          v-model.trim="form.description"
           required
         />
       </div>
       <div class="mb-6">
         <label>производитель</label>
         <input
+          v-model.trim="form.manufacturer"
           type="text"
           class="minput"
-          v-model.trim="form.manufacturer"
           required
         />
       </div>
@@ -95,9 +95,9 @@ const deleteImage = (img) => {
         <input
           type="file"
           class="minput"
-          @change="previewImage"
           accept="image/*"
           required
+          @change="previewImage"
         />
         <div>
           <p>
@@ -116,20 +116,20 @@ const deleteImage = (img) => {
       <div class="mb-6">
         <label>гарантия</label>
         <input
+          v-model="form.warranty"
           type="number"
           min="0"
           class="minput"
-          v-model="form.warranty"
           required
         />
       </div>
       <div class="mb-6">
         <label>цена</label>
         <input
+          v-model="form.price"
           type="number"
           min="0"
           class="minput"
-          v-model="form.price"
           required
         />
       </div>

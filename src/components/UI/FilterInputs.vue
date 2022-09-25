@@ -5,29 +5,25 @@ import { getNumberDataFromQuery } from '@/utils/getNumberDataFromQuery'
 // import { debounce } from '@/utils/debounce'
 
 const props = defineProps({
-  description: {
-    type: String,
-    reuqired: true,
-  },
   enDescription: {
     type: String,
-    reuqired: true,
+    required: true,
   },
   step: {
     type: Number,
-    dafault: 2,
+    default: 2,
   },
   maxVal: {
     type: Number,
-    reuqired: true,
+    required: true,
   },
   minVal: {
     type: Number,
-    reuqired: true,
+    required: true,
   },
   trigger: {
     type: Boolean,
-    reuqired: true,
+    required: true,
   },
 })
 
@@ -89,18 +85,17 @@ watch(
 
 <template>
   <div>
-    <div class="text-center my-2">{{ description }}</div>
     <div class="grid">
       <div>
         <input
+          ref="minRef"
+          v-model="minPric"
           :step="step"
           min="0"
           :max="max"
           class="filter_price min"
           placeholder="0"
           type="number"
-          ref="minRef"
-          v-model="minPric"
         />
       </div>
       <div>
@@ -108,14 +103,14 @@ watch(
       </div>
       <div class="text-end">
         <input
+          ref="maxRef"
+          v-model="maxPric"
           :step="step"
           min="0"
           :max="max"
           class="filter_price max"
           :placeholder="max"
           type="number"
-          ref="maxRef"
-          v-model="maxPric"
         />
       </div>
     </div>

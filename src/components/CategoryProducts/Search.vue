@@ -12,11 +12,11 @@ const setSearch = debounce(() => (search.value = searchValue.value), 400)
 <template>
   <div class="my-4">
     <input
+      v-model="searchValue"
       type="text"
       class="minput"
-      v-model="searchValue"
-      @input="setSearch"
       placeholder="поиск..."
+      @input="setSearch"
     />
   </div>
 </template>

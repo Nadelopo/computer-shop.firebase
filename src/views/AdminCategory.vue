@@ -86,15 +86,15 @@ const create = () => {
 <template>
   <AdminWrapper>
     <div>
-      <form @submit.prevent="create" method="get">
+      <form method="get" @submit.prevent="create">
         <div class="mb-6">
           <label>изображение</label>
           <input
             type="file"
             class="minput"
-            @change="previewImage"
             accept="image/*"
             required
+            @change="previewImage"
           />
           <div class="mt-2">
             <p>
@@ -113,18 +113,18 @@ const create = () => {
         <div class="mb-2">
           <label>наименование на английском</label>
           <input
+            v-model.trim="category.category"
             type="text"
             class="minput"
-            v-model.trim="category.category"
             required
           />
         </div>
         <div class="mb-2">
           <label>наименование на русском</label>
           <input
+            v-model.trim="category.name"
             type="text"
             class="minput"
-            v-model.trim="category.name"
             required
           />
         </div>
@@ -136,18 +136,18 @@ const create = () => {
           <div class="mb-2">
             <label>наименование поля на английском</label>
             <input
+              v-model.trim="field.enFieldTitle"
               type="text"
               class="minput"
-              v-model.trim="field.enFieldTitle"
               required
             />
           </div>
           <div class="mb-2">
             <label>наименование поля на русском</label>
             <input
+              v-model.trim="field.fieldTitle"
               type="text"
               class="minput"
-              v-model.trim="field.fieldTitle"
               required
             />
           </div>
@@ -155,9 +155,9 @@ const create = () => {
           <div class="mb-2">
             <label>единицы измерения</label>
             <input
+              v-model.trim="field.units"
               type="text"
               class="minput"
-              v-model.trim="field.units"
               required
             />
           </div>

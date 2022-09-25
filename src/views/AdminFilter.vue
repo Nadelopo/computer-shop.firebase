@@ -106,18 +106,18 @@ const createFilter = () => {
         <div class="mb-6">
           <label>наименование на английском</label>
           <input
+            v-model.trim="filter.enTitle"
             type="text"
             class="minput"
-            v-model.trim="filter.enTitle"
             required
           />
         </div>
         <div class="mb-6">
           <label>наименование на русском</label>
           <input
+            v-model.trim="filter.title"
             type="text"
             class="minput"
-            v-model.trim="filter.title"
             required
           />
         </div>
@@ -127,27 +127,27 @@ const createFilter = () => {
           <div class="mb-6">
             <label>минимальное значение</label>
             <input
+              v-model.trim="filter.params.min"
               type="number"
               class="minput"
-              v-model.trim="filter.params.min"
               required
             />
           </div>
           <div class="mb-6">
             <label>максимальное значение</label>
             <input
+              v-model.trim="filter.params.max"
               type="number"
               class="minput"
-              v-model.trim="filter.params.max"
               required
             />
           </div>
           <div class="mb-6">
             <label> значение перехода </label>
             <input
+              v-model.trim="filter.params.step"
               type="number"
               class="minput"
-              v-model.trim="filter.params.step"
               required
             />
           </div>
@@ -156,12 +156,12 @@ const createFilter = () => {
       <template v-else>
         <div v-for="(field, index) in filter" :key="index">
           <div>
-            <div class="mb-6" v-if="Object.keys(field).includes('id')">
+            <div v-if="Object.keys(field).includes('id')" class="mb-6">
               <label>значение фильтра</label>
               <input
+                v-model.trim="field.title"
                 type="text"
                 class="minput"
-                v-model.trim="field.title"
                 required
               />
             </div>

@@ -113,17 +113,17 @@ const auth = () => {
           зарегистрироваться
         </div>
       </div>
-      <div class="flex flex-col mb-4" v-if="!active">
+      <div v-if="!active" class="flex flex-col mb-4">
         <label class="label" for="">ИМЯ</label>
-        <input class="input" type="text" v-model="name" minlength="4" />
+        <input v-model="name" class="input" type="text" minlength="4" />
       </div>
       <div class="flex flex-col mb-4">
         <label class="label" for="">ПОЧТА</label>
-        <input class="input" type="email" v-model="email" />
+        <input v-model="email" class="input" type="email" />
       </div>
       <div class="flex flex-col mb-4">
         <label class="label" for="">ПАРОЛЬ</label>
-        <input class="input" type="password" v-model="password" />
+        <input v-model="password" class="input" type="password" />
       </div>
       <div class="my-12">
         <button class="btn btnn">
@@ -131,7 +131,7 @@ const auth = () => {
         </button>
       </div>
       <hr class="mb-4" />
-      <div class="text-center" v-if="active">
+      <div v-if="active" class="text-center">
         <span
           class="link cursor-pointer"
           @click="$router.push({ name: 'Reset' })"

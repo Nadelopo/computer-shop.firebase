@@ -36,7 +36,7 @@ const list = [
         «CMP» - один из лидеров рынка по продаже цифровой и бытовой техники
       </h1>
       <div class="list">
-        <div class="li" v-for="(item, index) in list" :key="index">
+        <div v-for="(item, index) in list" :key="index" class="li">
           <Component :is="item.svg" width="30" />
           <div>
             <div class="font-medium text-2xl mb-3">{{ item.head }}</div>

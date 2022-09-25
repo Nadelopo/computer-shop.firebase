@@ -45,7 +45,7 @@ onUnmounted(() => removeEventListener('click', checkClick))
 <template>
   <div>
     <div class="wrapper">
-      <div class="sidebar" ref="sidebarRef">
+      <div ref="sidebarRef" class="sidebar">
         <div class="grid grid-cols-2 items-center">
           <div>
             <router-link :to="{ name: 'Home' }">

@@ -56,7 +56,7 @@ onMounted(() => {
             <SkeletonProduct />
           </div>
         </template>
-        <div v-else v-for="(item, index) in filterProducts" :key="index">
+        <div v-for="(item, index) in filterProducts" v-else :key="index">
           <ProductBlock :item="item" />
         </div>
       </div>

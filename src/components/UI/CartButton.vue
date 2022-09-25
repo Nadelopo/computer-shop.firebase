@@ -8,7 +8,7 @@ const { cartProducts } = storeToRefs(cartStore())
 
 const props = defineProps({
   productId: {
-    typeof: String,
+    type: String,
     required: true,
   },
 })
