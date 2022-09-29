@@ -2,7 +2,7 @@
 import FilterInputs from '../UI/FilterInputs.vue'
 import { filtersStore } from '@/stores/filterStore'
 import { storeToRefs } from 'pinia'
-import { watch, ref } from 'vue'
+import { watch, ref, onUnmounted } from 'vue'
 import FilterCheckBox from '../UI/FilterCheckBox.vue'
 import { useRoute } from 'vue-router'
 import SkeletinFIlter from './SkeletinFIlter.vue'
@@ -22,6 +22,8 @@ const apply = () => {
   filterTrigger.value = !filterTrigger.value
   updateFilterProducts(route)
 }
+
+onUnmounted(() => (copyFilter.value = []))
 </script>
 
 <template>

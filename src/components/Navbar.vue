@@ -62,7 +62,7 @@ const open = ref(false)
         <div class="flex justify-end">
           <router-link :to="{ name: 'Home' }">
             <img
-              src="@/assets/img/logoChangeWhiteSizeF.png"
+              src="@/assets/img/logoChangeWhiteSizeFnew.png"
               width="95"
               alt=""
             />
@@ -73,7 +73,7 @@ const open = ref(false)
         <div class="logo">
           <router-link :to="{ name: 'Home' }">
             <img
-              src="@/assets/img/logoChangeWhiteSizeF.png"
+              src="@/assets/img/logoChangeWhiteSizeFnew.png"
               width="95"
               alt=""
             />

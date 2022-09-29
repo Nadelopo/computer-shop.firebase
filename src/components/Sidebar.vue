@@ -50,7 +50,7 @@ onUnmounted(() => removeEventListener('click', checkClick))
           <div>
             <router-link :to="{ name: 'Home' }">
               <img
-                src="@/assets/img/logoChangeWhiteSizeF.png"
+                src="@/assets/img/logoChangeWhiteSizeFnew.png"
                 width="95"
                 alt=""
               />

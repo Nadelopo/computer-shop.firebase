@@ -2,23 +2,13 @@ import { defineStore, storeToRefs } from 'pinia'
 import { ref, watch } from 'vue'
 import { usersStore } from '@/stores/userStore'
 import { productInCart } from '@/firebase'
+import { loadCartProducts } from '@/utils/loadCartProducts'
 
 export const cartStore = defineStore('cart', {
   state: () => {
-    const loadCartProducts = async () => {
-      const { getCurrentUserData } = usersStore()
-      const user = await getCurrentUserData()
-      if (user) {
-        cartProducts.value = user.cart
-      } else {
-        cartProducts.value = JSON.parse(localStorage.getItem('cart') || '[]')
-      }
-    }
-
     const { userId } = storeToRefs(usersStore())
     const cartProducts = ref([])
 
-    loadCartProducts()
     watch(
       cartProducts,
       () => {
@@ -33,7 +23,8 @@ export const cartStore = defineStore('cart', {
       }
     )
 
-    watch(userId, () => loadCartProducts())
+    loadCartProducts(cartProducts)
+    watch(userId, () => loadCartProducts(cartProducts))
 
     return { cartProducts }
   },
